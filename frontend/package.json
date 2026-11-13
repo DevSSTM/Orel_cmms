@@ -29,6 +29,7 @@
     "@reduxjs/toolkit": "1.8.2",
     "@sentry/react": "^10.74.0",
     "@stomp/stompjs": "^7.0.0",
+    "@supabase/supabase-js": "^2.119.0",
     "@tanstack/react-table": "^8.21.3",
     "@types/check-types": "^7.3.4",
     "@types/nprogress": "0.2.0",
