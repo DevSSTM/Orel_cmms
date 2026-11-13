@@ -32,8 +32,8 @@ REACT_APP_SUPABASE_PUBLISHABLE_KEY=<publishable-or-anon-key>
 Use only a publishable or anon key in browser configuration; never use a
 service-role or secret key. Configure Supabase Auth's site URL and allowed
 redirects for the deployed site. The database foundation and its access tests
-are in `../supabase/`; the migration intentionally leaves authenticated
-Data API schema access disabled until the integration is ready for rollout.
+are in `../supabase/`. Apply the foundation and API-access migrations, and run
+the authorization tests, before using this interface.
 
 ## Getting help
 
