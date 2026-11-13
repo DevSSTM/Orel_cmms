@@ -19,6 +19,7 @@ import {
 } from './config';
 import { ZendeskProvider } from 'react-use-zendesk';
 import * as Sentry from '@sentry/react';
+import SupabaseApp from './SupabaseApp';
 
 Sentry.init({
   dsn: sentryDsn,
@@ -29,29 +30,33 @@ Sentry.init({
 });
 
 ReactDOM.render(
-  <HelmetProvider>
-    <Helmet>
-      <meta name="robots" content="noindex, nofollow" />
-    </Helmet>
-    <Provider store={store}>
-      <SidebarProvider>
-        <TitleProvider>
-          <BrowserRouter>
-            <ScrollTop />
-            <ZendeskProvider apiKey={zendeskKey}>
-              <AuthProvider>
-                <Sentry.ErrorBoundary
-                  fallback={<div>Something went wrong.</div>}
-                >
-                  <App />
-                </Sentry.ErrorBoundary>
-              </AuthProvider>
-            </ZendeskProvider>
-          </BrowserRouter>
-        </TitleProvider>
-      </SidebarProvider>
-    </Provider>
-  </HelmetProvider>,
+  process.env.REACT_APP_CMMS_BACKEND === 'supabase' ? (
+    <SupabaseApp />
+  ) : (
+    <HelmetProvider>
+      <Helmet>
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
+      <Provider store={store}>
+        <SidebarProvider>
+          <TitleProvider>
+            <BrowserRouter>
+              <ScrollTop />
+              <ZendeskProvider apiKey={zendeskKey}>
+                <AuthProvider>
+                  <Sentry.ErrorBoundary
+                    fallback={<div>Something went wrong.</div>}
+                  >
+                    <App />
+                  </Sentry.ErrorBoundary>
+                </AuthProvider>
+              </ZendeskProvider>
+            </BrowserRouter>
+          </TitleProvider>
+        </SidebarProvider>
+      </Provider>
+    </HelmetProvider>
+  ),
   document.getElementById('root')
 );
 

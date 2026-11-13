@@ -23,6 +23,29 @@ export interface CmmsAsset {
   created_at: string;
 }
 
+export interface CmmsOrganization {
+  id: string;
+  name: string;
+}
+
+export async function listOrganizations(): Promise<CmmsOrganization[]> {
+  const { data, error } = await getSupabaseClient()
+    .from('cmms_organizations')
+    .select('id, name')
+    .order('name');
+  if (error) throw error;
+  return data as CmmsOrganization[];
+}
+
+export async function signUp(email: string, password: string) {
+  const { data, error } = await getSupabaseClient().auth.signUp({
+    email,
+    password
+  });
+  if (error) throw error;
+  return data;
+}
+
 export interface CmmsWorkOrder {
   id: string;
   organization_id: string;
@@ -115,7 +138,10 @@ export async function updateWorkOrder(
   organizationId: string,
   id: string,
   changes: Partial<
-    Pick<CmmsWorkOrder, 'title' | 'description' | 'status' | 'priority' | 'asset_id' | 'due_at'>
+    Pick<
+      CmmsWorkOrder,
+      'title' | 'description' | 'status' | 'priority' | 'asset_id' | 'due_at'
+    >
   >
 ): Promise<CmmsWorkOrder> {
   const { data, error } = await getSupabaseClient()

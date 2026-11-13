@@ -16,6 +16,25 @@ set REACT_APP_API_URL=http://localhost:8080
 npm start
 ```
 
+### Experimental Supabase core
+
+The Supabase interface is an independently selectable, limited core for
+authentication, organizations, assets, and work orders. It does not yet
+replace the complete Atlas feature set. To build or run it, set these
+variables before starting the frontend:
+
+```text
+REACT_APP_CMMS_BACKEND=supabase
+REACT_APP_SUPABASE_URL=https://<project-ref>.supabase.co
+REACT_APP_SUPABASE_PUBLISHABLE_KEY=<publishable-or-anon-key>
+```
+
+Use only a publishable or anon key in browser configuration; never use a
+service-role or secret key. Configure Supabase Auth's site URL and allowed
+redirects for the deployed site. The database foundation and its access tests
+are in `../supabase/`; the migration intentionally leaves authenticated
+Data API schema access disabled until the integration is ready for rollout.
+
 ## Getting help
 
 If you have questions, concerns, bug reports, etc, please file an issue in this repository's Issue Tracker or send an email at ibracool99@gmail.com.
